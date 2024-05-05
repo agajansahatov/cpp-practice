@@ -1,0 +1,66 @@
+FIRST TIME CONFIGURATION
+
+1. Download, Install and Open Xampp control panel
+  - Download link: https://www.apachefriends.org/ 
+
+2. Configure Apache for CGI
+  a) Click on config then select Apache(httpd.conf)
+  b) In httpd.conf search for:
+    - DocumentRoot "C:/xampp/htdocs"
+  c) Replace it with:
+    - DocumentRoot "C:/xampp/cgi-bin"
+  d) Search for:
+    - <Directory "C:/xampp/cgi-bin">
+  e) Find "Options None" and comment out this.
+  d) From the next line, add: 
+   - Options Indexes FollowSymLinks Includes ExecCGI
+  f) Require all granted
+
+	  AllowOverride All
+        #Options None
+        Options Indexes FollowSymLinks Includes ExecCGI
+        Require all granted
+
+3. Start Apache from Xampp control panel.
+ a) If apache doesn't start, check out these solutions:
+  - There are many possible answers for this problem. The most common and most likely is that you're running another program which is blocking port 80 or 443. If you've installed Skype, then you've found your problem! Change apache's port settings to 8080 and apache will work.
+  - If you change the port of apache, you will also have to go into "httpd.conf" (located in xampp/apache/conf) and near line 184, replace "ServerName localhost:80" with "ServerName localhost:8080".
+  - Even if the above procedure doesn't work. Then in the same file (httpd.conf) at line 45 replace
+    #Listen 0.0.0.0:80
+    #Listen [::]:80
+    Listen 80 
+  with
+    #Listen 0.0.0.0:8080
+    #Listen [::]:8080
+    Listen 8080
+
+4. Now, Write C++ code for the website in any IDE you prefer and then compile it.
+  Example: 
+    #include <iostream>
+    using namespace std;
+
+    int main () {
+       cout << "Content-type:text/html\r\n\r\n";
+       cout << "<html>\n";
+       cout << "<head>\n";
+       cout << "<title>Hello World - First CGI Program</title>\n";
+       cout << "</head>\n";
+       cout << "<body>\n";
+       cout << "<h2>Hello World! This is my first CGI program</h2>\n";
+       cout << "</body>\n";
+       cout << "</html>\n";
+       
+       return 0;
+    }
+  Important: This line "Content-type:text/html\r\n\r\n" must be included.
+
+5. Take the executed file and paste it in "C:/xampp/cgi-bin/" and then there, rename it like "index.cgi". The extension must be in ".cgi". 
+5.Or You can change the Project properties: 
+  - Output directory: C:/xampp/cgi-bin/helloweb
+  - Target name: index or any name
+  - Target extension: .cgi
+  - Build the C++ project
+
+6. Open the browser and validate for: 
+  - "http://localhost:8080/"
+7. There you go!
