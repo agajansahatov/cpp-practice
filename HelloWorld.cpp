@@ -2,8 +2,8 @@
 
 int main()
 {
-    std::cout << "Hello World";
+    std::cout << "Hello World" << std::endl;
 
-    SYSTEM("PAUSE");
+    system("Pause");
     return 0;
 }
